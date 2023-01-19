@@ -2,10 +2,10 @@ package forJava.level1;
 import java.util.Scanner;
 import java.util.Stack;
 
-/*
+/* 
  * 햄버거 만들기 
  * https://school.programmers.co.kr/learn/courses/30/lessons/133502
- */
+ */  
 public class makeHamburger {
 
 	public static void main(String[] args) {
