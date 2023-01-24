@@ -27,10 +27,7 @@ public class Sample {
 		for(String key :  map.keySet()){
 			answer *= map.get(key);
 		}
-		
 		answer = answer -1; 
-		
-		
 		return answer ;
 	}
 }
