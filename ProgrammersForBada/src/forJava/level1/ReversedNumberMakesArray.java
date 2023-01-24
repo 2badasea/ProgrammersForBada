@@ -10,7 +10,7 @@ public class ReversedNumberMakesArray {
 	static Scanner scn = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		// 방법은 크게 2가지. StringBuilder를 사용하는 방법. 
+		
 		System.out.println("자연수 n을 입력하세요");
 		long n = scn.nextLong();
 		int[] result = solution(n);
@@ -34,5 +34,8 @@ public class ReversedNumberMakesArray {
 		}
 		return intAry;
 	}
+	
+	
+	
 	
 }

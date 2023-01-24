@@ -3,31 +3,34 @@ package forJava.level2;
 import java.util.*;
 
 public class Sample {
+	static Scanner scn = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		System.out.println("Test");
+		
+		// 자연수 n 입력 -> 낱개로 거꾸로 int[] 배열에 담기. 
+		System.out.println("자연수 n 입력");
+		int n = scn.nextInt();
+		
+		int[] answer = solution(n);
+		for(int i = 0; i<answer.length; i++) {
+			System.out.println("[" + i + "] =" + answer[i]);
+		}
 	}
 	
-	private static int solution(String[][] clothes) {
-		int answer = 1;
+	private static int[] solution(long n) {
 		
-		// (아이템 이름, 아이템의 카테고리) => 형식으로 구성된 2차원 배열 파라미터.
-		// 옷을 입는 모든 경우의 수, 최소 의상 한 개씩 입음. 서로 다른 조합의 수.
-		HashMap<String, Integer> map = new HashMap<>();
-		
-		// 넘어온 2차원 배열을 반복문을 통해서 map 구조에 넣어야 한다. 카테고리와 아이템 이름으로. 
-		for(String[] clothe : clothes) {
-			// 행 단위로 데이터를 받는다.
-			String type = clothe[1]; 
-			map.put(type, map.getOrDefault(type, 1) + 1);
+		// 12345 입려 가정 -> "54321" -> 개별요소 for문으로 배열에 담기 
+		// 자연수 n을 문자열로 바꾸는 방법. 1. String.valueOf(n)    2. Integer.toString(); 3. 문자열 + ""연산
+		String s = n + ""; 
+		int[] beforeAry = new int[s.length()];
+		int cnt = 0;
+		while(n>0) {   // 0 5 1234, 1 4  123, 2 3 12,  3 2  1.2 , 4 1 0.12
+			beforeAry[cnt++] =  ((int)n%10);
+			n = n/10;
 		}
-		
-        // 지금 answer는 조합을 고려하지 않았다. 단순히 몇 번 넣었는지. 
-        // key(type)별의 갯수를 모두 곱해야 한다.
-		for(String key :  map.keySet()){
-			answer *= map.get(key);
-		}
-		answer = answer -1; 
-		return answer ;
+		return beforeAry;
 	}
+	
+	
+	
 }
