@@ -5,41 +5,32 @@ import java.util.List;
 
 public class Solution {
 	
-	// 다음 큰 숫자. 
-	public int solution(int n) {
+	// n개의 숫자들 사이의 최소공배수 구하기
+	public int solution(int[] intAry) {
 		int answer = 0;
 		
-		// 자바에서는 이진수 형태의 문자열로 변환해주는 toBinaryString() 메서드가 존재. 
-		int cur = calBinary(n); 
-		
-		while(true) {
-			n++;
-			if(cur == calBinary(n)) {
-				answer = n;
-				break;
-			}
+		// 두 수의 최소고배수는, 두 수의 곱 / 최대공약수. 
+		answer = intAry[0];
+		for(int i = 1; i<intAry.length; i++) {
+			answer = (answer * intAry[i]) / gcd(answer,intAry[i]);
 		}
 		return  answer;
 	}
 	
-	private int calBinary(int m) {
-		int count = 0;
-		String binary = Integer.toBinaryString(m);
-		for(int i =0; i<binary.length(); i++) {
-			if(binary.charAt(i) == '1') {
-				count++;
-			}
-		}
+	int gcd(int a, int b) {
+		int x = Math.max(a, b);
+		int y = Math.min(a, b);
+		int r = x%y;
 		
-		return count;
+		if(x%y == 0) return y;
+		return gcd(y, r); 
 	}
 	
 	
 	
 	public static void main(String[] args) {
 		Solution sol = new Solution();
-		System.out.println(sol.solution(78)); // 83
-		System.out.println(sol.solution(15)); // 23
-		
+		int[] test = {2,6,8,14};
+		System.out.println(sol.solution(test));
 	}
 }
