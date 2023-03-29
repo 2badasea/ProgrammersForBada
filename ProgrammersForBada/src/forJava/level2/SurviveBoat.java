@@ -7,7 +7,6 @@ import java.util.Arrays;
  * https://school.programmers.co.kr/learn/courses/30/lessons/42885
  */
 public class SurviveBoat {
-
 	public int solution(int[] people, int limit) {
 		int answer = 0;
 

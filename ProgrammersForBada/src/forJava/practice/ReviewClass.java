@@ -1,37 +1,32 @@
 package forJava.practice;
 
-import java.util.Arrays;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class ReviewClass {
-
-	public int[] solution(int brown, int yellow) {
-		int[] answer = new int[2];
-
-		int sum = brown + yellow;
-		int x = 0;
-
-		for (int y = 1; y <= sum; y++) {
-			x = sum / y;
-			if (y > x) {
-				continue;
-			}
-
-			if ((x - 2) * (y - 2) == yellow) {
-				System.out.println("x, y: " + x + ", " + y);
-				return answer = new int[] { x, y };
+	/*
+	 *	프로그래머스 - 햄버거 만들기
+	 *	빵, 야채, 고기, 빵 순으로 재료가 조합이 될 때마다 햄버거가 만들어진다. ( 1, 2, 3, 1) 
+	 *	정수 배열 ingredients가 주어졌을 때, 포장하는 햄버거의 총 갯수를 구하기. 
+	 */
+	public static void main(String[] args) {
+		int[] ingredients = { 2, 1, 1, 2, 3, 1, 2,3, 1};
+		int sum = makeBurgers(ingredients);
+		System.out.println("햄버거 총 개수: " + sum);
+	}	
+	
+	static int makeBurgers(int[] ingredients) {
+		int burgers = 0;
+		StringBuilder sb = new StringBuilder();
+		for(int in : ingredients) {
+			sb.append(String.valueOf(in));
+			if( sb.indexOf("1231") != -1) {
+				burgers++;
+				System.out.println(sb);
+				sb.delete(sb.indexOf("1231"), sb.indexOf("1231") + 4);
+				System.out.println(sb);
 			}
 		}
-		
-		System.out.println("여기 까지 오나?");
-		return new int[] { -1 };
+		return burgers;
 	}
-
-	public static void main(String[] args) {
-		ReviewClass rc = new ReviewClass();
-		System.out.println(rc.solution(10, 2)); // [4,3]
-		System.out.println(rc.solution(8, 1)); // [3,3]
-		System.out.println(rc.solution(24, 24)); // [8,6]
-
-	}
-
 }
