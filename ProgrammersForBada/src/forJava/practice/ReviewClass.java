@@ -1,8 +1,5 @@
 package forJava.practice;
 
-import java.util.Scanner;
-import java.util.Stack;
-
 public class ReviewClass {
 	/*
 	 *	프로그래머스 - 햄버거 만들기

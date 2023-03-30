@@ -1,5 +1,4 @@
 package forJava.level1;
-import java.util.*;
 
 /*
  * 자연수 N이 주어지면, N의 각 자리의 수를 합한 결과를 구하기
