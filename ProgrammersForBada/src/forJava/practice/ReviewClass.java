@@ -1,62 +1,47 @@
 package forJava.practice;
 
-import java.util.Stack;
+import java.util.Scanner;
 
 public class ReviewClass {
-	/*
-	 *	프로그래머스 - 햄버거 만들기
-	 *	빵, 야채, 고기, 빵 순으로 재료가 조합이 될 때마다 햄버거가 만들어진다. ( 1, 2, 3, 1) 
-	 *	정수 배열 ingredients가 주어졌을 때, 포장하는 햄버거의 총 갯수를 구하기. 
-	 */
+
 	public static void main(String[] args) {
-		int[] ingredients = { 1,2,3,1,1,1,2,3,1,4,3,1,2,3,1};
-		int sum = makeBurgers(ingredients);
-		System.out.println("햄버거 총 개수: " + sum);
-	}	
-	
-	static int makeBurgers(int[] ingredients) {
-		int burgers = 0;
+		// 어떤 정수 n에 대하여 n이하의 소수를 모두 출력
+		// 1. 1을 제외하고, 소수는 소수로도 나누어떨어지지 않는다는 사실을 활용. 
+		// 2. 소수만 담은 배열 생성 => 이 배열의 요소들로만 나누어 떨어지는지 판단. 
+		Scanner scn = new Scanner(System.in);
+		System.out.println("정수 n 입력");
+		int n = scn.nextInt();
+		int[] tempAry = new int[n];
 		
-		// tryBurger 메서드 활용해서 풀어볼 것. 
-		Stack<Integer> stack = new Stack<>();
+		tempAry[0] = 2;
+		tempAry[1] = 3;
 		
-		// for문 반복으로 stack에 재료 투하
-		for(int in : ingredients) {
-			stack.push(in);
-			if(in == 1 && tryBurger(stack)) {
-				burgers++;
+		int cnt = 2;
+		for(int i = 4; i<=n; i++) {
+			if(check(i, tempAry, cnt)) {
+				continue;
+			}else {
+				tempAry[cnt++] = i;
 			}
 		}
-		return burgers;
+		
+		System.out.println("정답");
+		for(int i = 0; i<cnt; i++) {
+			System.out.println(tempAry[i]);
+		}
+	
 	}
 	
-	static boolean tryBurger(Stack<Integer> stack) {
-		// stack의 사이즈가 4미만이면 리턴
-		if(stack.size() < 4) {
-			return false;
-		}
-		
-		// 임시 stack, 비교 배열 생성
-		Stack<Integer> tempStack = new Stack<Integer>();
-		Integer[] ary = {1,3,2,1};
-		int thigIng = 0;
-		for(int s : ary) {
-			thigIng = stack.pop();
-			if( s == thigIng) {
-				tempStack.push(thigIng);
-			} else {
-				stack.push(thigIng);
-				break;
+	static boolean check(int i, int[] tempAry, int cnt) {
+		System.out.println("i: " + i );
+		for(int j =0; j<cnt; j++) {
+			if( i % tempAry[j] == 0) {
+				return true;
 			}
 		}
-		
-		if(tempStack.size() == 4) {
-			return true;
-		} else {
-			while(!tempStack.isEmpty()) {
-				stack.push(tempStack.pop()); 
-			}
-			return false;
-		}
+		return false;
 	}
+	
+	
+	
 }
