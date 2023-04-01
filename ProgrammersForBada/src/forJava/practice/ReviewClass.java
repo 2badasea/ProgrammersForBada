@@ -1,47 +1,60 @@
 package forJava.practice;
 
-import java.util.Scanner;
-
 public class ReviewClass {
 
 	public static void main(String[] args) {
-		// 어떤 정수 n에 대하여 n이하의 소수를 모두 출력
-		// 1. 1을 제외하고, 소수는 소수로도 나누어떨어지지 않는다는 사실을 활용. 
-		// 2. 소수만 담은 배열 생성 => 이 배열의 요소들로만 나누어 떨어지는지 판단. 
-		Scanner scn = new Scanner(System.in);
-		System.out.println("정수 n 입력");
-		int n = scn.nextInt();
-		int[] tempAry = new int[n];
+		// 주어진 숫자 중 3개의 수를 더했을 때 소수가 되는 경우의 갯수를 구한다. 숫자가 들어있는 배열 nums가 매개변수. 
+		// 1. 반복문을 3번 돌릴 준비
+		// 2. 루프를 돌면셔, 기존의 소수인 것만 찾아서 먼저 담아놓고 담아놓은 숫자들로만 비교하도록. 
 		
-		tempAry[0] = 2;
-		tempAry[1] = 3;
+		int[] nums = {1,2,3,4};
+		int[] nums2 = {1,2,7,6,4};
+		
+		
+//		System.out.println(countPrime(nums)); 
+		System.out.println(countPrime(nums2)); 
+		
+	}
+	
+	static int countPrime(int[] nums) {
+		int result =0;
 		
 		int cnt = 2;
-		for(int i = 4; i<=n; i++) {
-			if(check(i, tempAry, cnt)) {
-				continue;
-			}else {
-				tempAry[cnt++] = i;
+		int[] primes = new int[nums.length + 1];
+		primes[0] = 2;
+		primes[1] = 3;
+		
+		int sum;
+		for(int i = 0; i<nums.length -2; i++) {
+			for(int j = i + 1; j<nums.length -1; j++) {
+				for(int k = j + 1; k<nums.length; k++) {
+					sum = nums[i] + nums[j] + nums[k];
+					if(primeCheck(sum, cnt, primes)) {
+						primes[cnt++] = sum;
+						result++;
+					}
+				}
 			}
 		}
 		
-		System.out.println("정답");
-		for(int i = 0; i<cnt; i++) {
-			System.out.println(tempAry[i]);
-		}
-	
+		return result;
 	}
 	
-	static boolean check(int i, int[] tempAry, int cnt) {
-		System.out.println("i: " + i );
-		for(int j =0; j<cnt; j++) {
-			if( i % tempAry[j] == 0) {
-				return true;
+	static boolean primeCheck(int sums, int cnt, int[] primes) {
+		boolean b = true;
+		int i;
+		for(i = 0; i<cnt; i++) {
+			if( sums % primes[i] == 0) {
+				b = false;
+				break;
 			}
 		}
-		return false;
+		if(i == cnt) {
+			b = true;
+		} else {
+			b = false;
+		}
+		return b;
 	}
-	
-	
 	
 }
