@@ -1,60 +1,39 @@
 package forJava.practice;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ReviewClass {
 
 	public static void main(String[] args) {
-		// 주어진 숫자 중 3개의 수를 더했을 때 소수가 되는 경우의 갯수를 구한다. 숫자가 들어있는 배열 nums가 매개변수. 
-		// 1. 반복문을 3번 돌릴 준비
-		// 2. 루프를 돌면셔, 기존의 소수인 것만 찾아서 먼저 담아놓고 담아놓은 숫자들로만 비교하도록. 
+		// 문자열 내 p와 y의 개수
+		// 대문자와 소문자가 섞여있는 문자열 s -> p의 개ㅜㅅ와 y의 개수가 같으면 true, 다르면 false를 리턴. 
+		// 대소문자 구분 x 
 		
-		int[] nums = {1,2,3,4};
-		int[] nums2 = {1,2,7,6,4};
+		String test1 = "pPoooyY";
+		String test2 = "Pyy";
 		
 		
-//		System.out.println(countPrime(nums)); 
-		System.out.println(countPrime(nums2)); 
-		
+		ReviewClass rc = new ReviewClass();
+		System.out.println(rc.solution(test1)); 
+		System.out.println(rc.solution(test2)); 
 	}
 	
-	static int countPrime(int[] nums) {
-		int result =0;
+	private boolean solution(String s) {
+		int count = 0;
+		s = s.toLowerCase();
 		
-		int cnt = 2;
-		int[] primes = new int[nums.length + 1];
-		primes[0] = 2;
-		primes[1] = 3;
-		
-		int sum;
-		for(int i = 0; i<nums.length -2; i++) {
-			for(int j = i + 1; j<nums.length -1; j++) {
-				for(int k = j + 1; k<nums.length; k++) {
-					sum = nums[i] + nums[j] + nums[k];
-					if(primeCheck(sum, cnt, primes)) {
-						primes[cnt++] = sum;
-						result++;
-					}
-				}
+		for(int i = 0; i<s.length(); i++) {
+			if( s.charAt(i) == 'p') {
+				count++;
+			}else if( s.charAt(i) == 'y') {
+				count--;
 			}
 		}
 		
-		return result;
+		return count == 0 ? true : false;
 	}
 	
-	static boolean primeCheck(int sums, int cnt, int[] primes) {
-		boolean b = true;
-		int i;
-		for(i = 0; i<cnt; i++) {
-			if( sums % primes[i] == 0) {
-				b = false;
-				break;
-			}
-		}
-		if(i == cnt) {
-			b = true;
-		} else {
-			b = false;
-		}
-		return b;
-	}
 	
 }
