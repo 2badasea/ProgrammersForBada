@@ -1,44 +1,139 @@
 package forJava.practice;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Stack;
 
 public class ReviewClass {
 
 	public static void main(String[] args) {
 		ReviewClass rc = new ReviewClass();
-		// 첫 문자가 대문자, 그 외의 알파벳은 소문자인 문자열
-		// 첫 문자가 알파벳이 아닌 경우, 이어지는 알파벳은 소문자로. 
-		// 문자열 s가 주어졌을 때, s를 JadenCase로 바꾼 문자열을 리턴하는 함수 완성하기
-		String test1 = "3people unFollowed me";
-		String test2 = "for the last week";
-		System.out.println(rc.jadenCase(test1));
-//		System.out.println(rc.jadenCase(test2));
 		
+		System.out.println(rc.contest(32, 4,7));  // 3
 	}
 	
-	private String jadenCase(String s) {
-		String answer = "";
+	// 예상 대진표
+	public int contest(int n, int a, int b) {
+		int answer = 0;
 		
-		String[] strAry = s.split("");
-		boolean flag = true;
+		// 작은수와 큰 수를 정한 다음, while문을 돌린다. 
+		int min = a;  
+		int max= b;
+		if(a > b) max = a; min = b;
 		
-		for(String str : strAry) {
-			if(str.equals(" ")) {
-				flag = true;
-				answer += str;
-				continue; // continue => 다음 for문 조건으로 이동. 
-			}
+		// min과 max로만 다루기 시작 이때 n이 의미하는 
+		int limit = (int)Math.sqrt(n + 1);
+		System.out.println("limit값: " + limit);
+		while(++answer < limit) {
 			
-			if(flag) {
-				str = str.toUpperCase();
-				flag = false;
+			if( (min % 2) == 1 && (max-min) == 1) {
+				break;
 			}else {
-				str = str.toLowerCase();
+				min = cal(min);
+				max= cal(max);
+				continue;
 			}
-			answer += str;
 		}
 		return answer;
+	}
+	
+	public int cal(int num) {
+		if(num % 2 == 0) {
+			num /= 2;
+		}else {
+			num /=  (num + 1)/2;
+		}
+		return num;
+	}
+	
+	
+	public void makeSquare(int n, int m) {
+		// 가로가 n, 세로가 m인 직사각형 형태를 출력
+		// 이중 for문이 아니 StringBuilder 클래스 이용
+		StringBuilder sb = new StringBuilder();
+		for(int i= 0; i<n; i++) {
+			sb.append("*");
+		}
+		for(int j = 0; j<m; j++) {
+			System.out.println(sb);
+		}
+	}
+	
+	
+	
+	public int[] carpet(int brown, int yellow) {
+		int width = brown + yellow;
+		int[] answer = new int[2];
+		
+		
+		// y는 1이 될 수 없다. 
+		int x = 0; 
+		int y = 2;
+		
+		
+		while(true) {
+			x = width/y;
+			if(y> 2 && (x * y) == width && ((x-2)*(y-2)) == yellow) {
+				break ;
+			}
+			y++;
+		}
+		
+		answer[0] = x;
+		answer[1] = y;
+		System.out.println("x값: " + x + ", y값: " + y);
+		return answer;
+	}
+	
+	public int makeMin(int[] aAry, int[] bAry) {
+		
+		// 누적된 값이 최소가 되려면, 가장 큰 수와 가장 큰 수를 곱하면 안 된다. => 최소와 최대를 곱하여 누적시킨다.
+		// 우선 정렬을 하는 방식
+		Arrays.sort(aAry); 
+		Arrays.sort(bAry);
+		
+		int min = 0; 
+		
+		for(int i =0; i<aAry.length; i++) {
+			min += (aAry[i] * bAry[aAry.length -1 -i]);
+		}
+		
+		return min;
+	}
+	
+	
+	public int commonSolution(int[] ary) {
+		// 유킬르드 호제법 => 두 수의 최소공배수: 두 수의 곱을 최대공약수로 나눈 것. 
+		int answer = 0;
+		
+		// 최대공약수를 구하는 메서드 정의.
+		Arrays.sort(ary);
+		answer = ary[0];
+		
+		for(int i = 1; i<ary.length; i++) {
+			answer =  answer * ary[i] / commonCal(answer, ary[i]); 
+		}
+		return answer;
+	}
+	
+	private int commonCal(int x, int y) {
+		int min = Math.min(x, y);
+		int max = Math.max(y, x);
+		
+		
+		// 큰수에서 작은수가 0으로 나누어 떨어지면 작은 수가 최대공약수
+		// 떨어지지 않으면, 이전의 작은 수를 max, 그리고 나머지를 min으로 두고 반복한다. 0으로 나누어 떨어질 때까지. 
+		
+		while(true) {
+			if(max % min == 0) {
+				System.out.println("최대 공약수: " + min);
+				return min;
+			}else {
+				int r = max % min;
+				max = min;
+				min = r;
+			}
+		}
 	}
 	
 	private String maxAndMin(String s) {
