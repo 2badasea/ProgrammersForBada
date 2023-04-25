@@ -1,101 +1,17 @@
 package forJava.practice;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Stack;
 
 public class ReviewClass {
-
+	static String name = null;
+	
 	public static void main(String[] args) {
-		ReviewClass rc = new ReviewClass();
-
-		System.out.println(rc.findKim( new String[]{"Jane", "Kim"})); // 3
-	}
-
-	/*
-	 * 서울에서 김서방 찾기
-	 */
-	public String findKim(String[] ary) {
-		String answer = "";
+		Member bada = new Member("이바다");
+		Member seulbi = new Member("이슬비");
 		
-		int x = 0;
-		for(String s : ary) {
-			if(s.equalsIgnoreCase("kim")) break;
-			x++;
-		}
-		
-		return "김서방은 " + x + "에 있다.";
-	}
-
-
-	// 예상 대진표
-	public int contest(int n, int a, int b) {
-		int answer = 0;
-
-		// 작은수와 큰 수를 정한 다음, while문을 돌린다.
-		int min = a;
-		int max = b;
-		if (a > b)
-			max = a;
-		min = b;
-
-		// min과 max로만 다루기 시작 이때 n이 의미하는
-		int limit = (int) Math.sqrt(n + 1);
-		System.out.println("limit값: " + limit);
-		while (++answer < limit) {
-
-			if ((min % 2) == 1 && (max - min) == 1) {
-				break;
-			} else {
-				min = cal(min);
-				max = cal(max);
-				continue;
-			}
-		}
-		return answer;
-	}
-
-	public int cal(int num) {
-		if (num % 2 == 0) {
-			num /= 2;
-		} else {
-			num /= (num + 1) / 2;
-		}
-		return num;
-	}
-
-	public void makeSquare(int n, int m) {
-		// 가로가 n, 세로가 m인 직사각형 형태를 출력
-		// 이중 for문이 아니 StringBuilder 클래스 이용
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < n; i++) {
-			sb.append("*");
-		}
-		for (int j = 0; j < m; j++) {
-			System.out.println(sb);
-		}
-	}
-
-	public int[] carpet(int brown, int yellow) {
-		int width = brown + yellow;
-		int[] answer = new int[2];
-
-		// y는 1이 될 수 없다.
-		int x = 0;
-		int y = 2;
-
-		while (true) {
-			x = width / y;
-			if (y > 2 && (x * y) == width && ((x - 2) * (y - 2)) == yellow) {
-				break;
-			}
-			y++;
-		}
-
-		answer[0] = x;
-		answer[1] = y;
-		System.out.println("x값: " + x + ", y값: " + y);
-		return answer;
+		bada.today();
+		seulbi.today();
 	}
 
 	public int makeMin(int[] aAry, int[] bAry) {
@@ -125,7 +41,7 @@ public class ReviewClass {
 		for (int i = 1; i < ary.length; i++) {
 			answer = answer * ary[i] / commonCal(answer, ary[i]);
 		}
-		return answer;
+		return answer; 
 	}
 
 	private int commonCal(int x, int y) {
@@ -182,5 +98,31 @@ public class ReviewClass {
 		return (stack.size() == 0) ? 1 : 0;
 		// return stack.isEmpty() ? 1 : 0 표현으로도 가능.
 	}
+}
 
+class Member{
+	
+	String name;  // 인스턴스 변수. static을 붙이면 인스턴스가 생길 때마다 필드값이 변경
+	
+	// 인스턴스 변수. 생성자를 통해 주입받지 않는 방식. 
+	static int[] lotto = new int[6];
+	
+	{
+		for(int i = 0; i<6; i++) {
+			lotto[i] = (int)(Math.random() * 45 -1 + 1) + 1;
+		}
+	}
+	Member(String name) {
+		this.name = name; 
+		
+		System.out.println("이름: " + this.name);
+		
+		for(int i =0; i<lotto.length; i++) {
+			System.out.println("lotto[" + (i+1) + "]=" + lotto[i] );
+		}
+	}
+	
+	void today() {
+		System.out.println(this.name + " 화이팅");
+	}
 }
